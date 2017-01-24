@@ -1,0 +1,25 @@
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - src/
+  script:
+    - cd src/
+    - make clean
+    - make
+    - cd ..
+test:
+  stage: test
+  artifacts:
+    paths:
+      - src/
+  script:
+    - cd src/
+    - ./Test.exe > ../Pipeline/TestResults
+    - cd ../Pipeline/
+    - python check.py
